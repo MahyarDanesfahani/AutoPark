@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شبیه‌ساز سه‌بعدی پارک خودکار</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{ "imports": { "three": "./lib/three.module.js" } }
+</script>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1 data-i18n="title"></h1>
+    <span class="subtitle" data-i18n="subtitle"></span>
+  </div>
+  <div class="header-actions">
+    <div class="cam-group">
+      <button class="ghost" id="btn-cam-scene" data-i18n="camScene"></button>
+      <button class="ghost" id="btn-cam-top" data-i18n="camTop"></button>
+      <button class="ghost" id="btn-cam-side" data-i18n="camSide"></button>
+      <button class="ghost" id="btn-cam-driver" data-i18n="camDriver"></button>
+    </div>
+    <label class="chk">
+      <input type="checkbox" id="chk-viz" checked>
+      <span data-i18n="searchViz"></span>
+    </label>
+    <button class="ghost lang" id="btn-lang">EN</button>
+  </div>
+</header>
+
+<main>
+  <!-- در RTL این پنل سمت راست است، در LTR سمت چپ -->
+  <aside id="controls" class="panel">
+    <h2 data-i18n="controls"></h2>
+
+    <label class="field-label" data-i18n="scenario"></label>
+    <select id="sel-scenario">
+      <option value="parallel" data-i18n="parallel"></option>
+      <option value="perpendicular" data-i18n="perpendicular"></option>
+      <option value="angled" data-i18n="angled"></option>
+    </select>
+
+    <label class="field-label" data-i18n="difficulty"></label>
+    <div class="range-row">
+      <span class="range-cap" data-i18n="easy"></span>
+      <input type="range" id="rng-diff" min="0" max="100" value="30">
+      <span class="range-cap" data-i18n="hard"></span>
+    </div>
+
+    <label class="field-label" data-i18n="algorithm"></label>
+    <select id="sel-algo">
+      <option value="hybrid-astar" data-i18n="hybrid"></option>
+      <option value="astar" data-i18n="astar"></option>
+      <option value="rrt" data-i18n="rrt"></option>
+      <option value="all" data-i18n="all"></option>
+    </select>
+
+    <div id="rrt-runs-row" class="hidden">
+      <label class="field-label" data-i18n="rrtRuns"></label>
+      <input type="number" id="num-rrt" min="1" max="9" step="1" value="3">
+    </div>
+
+    <label class="field-label" data-i18n="startOffset"></label>
+    <select id="sel-start">
+      <option value="default" data-i18n="startDefault"></option>
+      <option value="near" data-i18n="startNear"></option>
+      <option value="far" data-i18n="startFar"></option>
+    </select>
+
+    <button id="btn-plan" class="primary" data-i18n="plan"></button>
+
+    <div class="row">
+      <button id="btn-play" data-i18n="play" disabled></button>
+      <button id="btn-reset" data-i18n="reset"></button>
+    </div>
+
+    <label class="field-label" data-i18n="speed"></label>
+    <div class="range-row">
+      <span class="range-cap">½×</span>
+      <input type="range" id="rng-speed" min="0.5" max="4" step="0.25" value="1.5">
+      <span class="range-cap">4×</span>
+    </div>
+
+    <p class="hint" data-i18n="footerHint"></p>
+  </aside>
+
+  <div id="canvas-wrap"></div>
+
+  <aside id="results-panel" class="panel">
+    <h2 data-i18n="results"></h2>
+    <div id="status" class="status" data-i18n="noResults"></div>
+    <div class="table-wrap">
+      <table id="tbl-results">
+        <thead>
+          <tr>
+            <th data-i18n="colAlgo"></th>
+            <th data-i18n="colResult"></th>
+            <th data-i18n="colTime"></th>
+            <th data-i18n="colLen"></th>
+            <th data-i18n="colRev"></th>
+            <th data-i18n="colPos"></th>
+            <th data-i18n="colHead"></th>
+            <th data-i18n="colNodes"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="summary"></div>
+    <div id="active-algo" class="active-algo" data-i18n="activeAlgorithm">الگوریتم در حال پخش: —</div>
+    <canvas id="chart" width="440" height="250"></canvas>
+    <div id="legend"></div>
+    <h2 data-i18n="historyTitle">سوابق پارک</h2>
+    <div class="table-wrap"><table id="tbl-history"><thead><tr>
+      <th data-i18n="historyScenario">فضا</th><th data-i18n="historyAlgo">الگوریتم</th><th data-i18n="colResult">نتیجه</th><th data-i18n="historyTime">زمان</th><th data-i18n="historyAccuracy">دقت</th><th data-i18n="historyCollisions">برخورد</th><th data-i18n="historyQuality">کیفیت</th>
+    </tr></thead><tbody></tbody></table></div>
+  </aside>
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

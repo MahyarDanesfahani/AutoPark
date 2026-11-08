@@ -1,0 +1,7 @@
+{
+  "name": "autopark-simulator",
+  "version": "1.0.0",
+  "description": "3D auto-parking simulator comparing Hybrid A*, A* and RRT",
+  "type": "module",
+  "private": true
+}
